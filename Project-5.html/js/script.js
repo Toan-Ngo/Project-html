@@ -104,6 +104,7 @@ progressArea.addEventListener('click', (e) => {
 
 });
 
+
 const repeatBtn = wrapper.querySelector("#repeat-plist");
 
 repeatBtn.addEventListener("click", () =>{
@@ -193,3 +194,28 @@ function clicked(element) {
     playMusic();
     playingSong();
 }
+
+mainAudio.addEventListener('ended', () => {
+    let getText = repeatBtn.innerText;
+
+    switch(getText){
+        case "repeat": 
+            nextMusic();
+            break;
+        case "repeat-one":
+            mainAudio.currentTime = 0;
+            loadMusic(musicIndex);
+            playMusic();
+            break;
+        default:
+            let randIndex = Math.floor((Math.random() * allMusic.length) + 1);
+            do {
+                randIndex = Math.floor((Math.random() * allMusic.length) + 1);
+            } while(randIndex == musicIndex);
+            musicIndex = randIndex;
+            loadMusic(musicIndex);
+            playMusic();
+            playingSong();
+            break;
+    }
+})
